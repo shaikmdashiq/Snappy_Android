@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Snappy</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Read</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_list_photos">ListPhotos</string>
+    <string name="title_activity_photo_details">PhotoDetails</string>
+    <string name="title_activity_list_all_maps">Map</string>
+
+</resources>

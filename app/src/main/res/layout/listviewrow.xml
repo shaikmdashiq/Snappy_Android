@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:id="@+id/imgPreview"
+        android:src="@drawable/snapbutton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imgPreview"
+        android:layout_toEndOf="@+id/imgPreview"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/txtDesc"
+        android:layout_below="@+id/txtName"
+        android:layout_toRightOf="@+id/imgPreview"
+        android:layout_toEndOf="@+id/imgPreview"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:textStyle="bold|italic" />
+</RelativeLayout>
