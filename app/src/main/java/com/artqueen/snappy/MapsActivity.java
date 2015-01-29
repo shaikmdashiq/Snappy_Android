@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity {
         }catch (Exception e) {
             Log.i("pics", e.toString());
         }
-         bmp_scaled=Bitmap.createScaledBitmap(bmp, bmp.getWidth()/4,bmp.getHeight()/4, false);
+         bmp_scaled=Bitmap.createScaledBitmap(bmp, bmp.getWidth()/5,bmp.getHeight()/5, false);
 
 
         setUpMapIfNeeded();

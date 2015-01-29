@@ -98,14 +98,14 @@ List<PhotoDb> list;
             } catch (Exception e) {
                 Log.i("pics", e.toString());
             }
-            bmp_scaled = Bitmap.createScaledBitmap(bmp, bmp.getWidth() / 4, bmp.getHeight() / 4, false);
+            bmp_scaled = Bitmap.createScaledBitmap(bmp, bmp.getWidth() / 5, bmp.getHeight() / 5, false);
 
 
             mMap.addMarker(new MarkerOptions()
                     .position(SG)
                     .title(obj.getName())
                     .snippet(obj.getDesc())
-                    .icon(BitmapDescriptorFactory.fromBitmap(getRoundedCornerBitmap(bmp_scaled,50))));
+                    .icon(BitmapDescriptorFactory.fromBitmap(getRoundedCornerBitmap(bmp_scaled,500))));
             mMap.setMyLocationEnabled(true);
             CameraPosition c = new CameraPosition.Builder()
                     .target(SG)

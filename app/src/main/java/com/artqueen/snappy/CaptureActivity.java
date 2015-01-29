@@ -3,6 +3,7 @@ package com.artqueen.snappy;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -30,8 +32,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 
 
 public class CaptureActivity extends ActionBarActivity {
@@ -65,6 +69,10 @@ public class CaptureActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 upload();
+
+                //networking
+                uploadPhoto();
+
             }
         });
         Button BtnSnap = (Button) findViewById(R.id.BtnSnap);
@@ -80,6 +88,59 @@ public class CaptureActivity extends ActionBarActivity {
     private int readPreference() {
         return (preferences.getInt("count",0));
     }
+
+    //networking
+    private void uploadPhoto() {
+        new AsyncTask<Uri, Void, Void>(){
+            @Override
+            protected Void doInBackground(Uri... arg) {
+                String f = getRealPathFromURI(arg[0]);
+                Transfer.uploadFile(f);
+                return null;
+            }
+            protected void onPostExecute(Void v) {
+                new AsyncTask<Uri, Void, Bitmap>() {
+                    @Override
+                    protected Bitmap doInBackground(Uri... arg) {
+                        File f = new File(getRealPathFromURI(arg[0]));
+                        String n = f.getName();
+                        try {
+                            InputStream in = new URL(String.format("%s/images/%s", Transfer.base, n)).openStream();
+                            Bitmap b = BitmapFactory.decodeStream(in);
+                            return b;
+                        } catch (Exception e) {
+                            return null;
+                        }
+                    }
+
+                    protected void onPostExecute(Bitmap b) {
+                        //ImageView v = (ImageView) findViewById(R.id.imageView2);
+                        //v.setImageBitmap(b);
+                    }
+                }.execute(uri);
+            }
+        }.execute(uri);
+    }
+
+    //networking
+    private String getRealPathFromURI(Uri uri)
+    {
+        Log.d("log uri",""+uri.toString());
+        String filePath;
+
+        if (uri != null && "content".equals(uri.getScheme())) {
+            Cursor cursor = getContentResolver().
+                    query(uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            cursor.moveToFirst();
+            filePath = cursor.getString(0);
+            cursor.close();
+        } else {
+            filePath = uri.getPath();
+        }
+        Log.d("log uri",""+filePath);
+        return(filePath);
+    }
+
 
     private void storeCountInSP() {
         SharedPreferences.Editor editor = preferences.edit();

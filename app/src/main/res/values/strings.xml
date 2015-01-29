@@ -9,5 +9,7 @@
     <string name="title_activity_list_photos">ListPhotos</string>
     <string name="title_activity_photo_details">PhotoDetails</string>
     <string name="title_activity_list_all_maps">Map</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_readwrite">readwrite</string>
 
 </resources>
